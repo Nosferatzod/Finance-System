@@ -58,14 +58,17 @@ public class UserService {
 
     @Transactional
     public void createUser(CreateUserDTO createUserDTO){
-        RoleName roleNameFromDTO=createUserDTO.role();
-        Role userRole=roleRepository.findByName(roleNameFromDTO);
+        RoleName roleNameFromDTO = createUserDTO.role();
+        Role userRole = roleRepository.findByName(roleNameFromDTO);
+
         User newUser = User.builder()
+                .name(createUserDTO.name())
+                .cpf(createUserDTO.cpf())
                 .email(createUserDTO.email())
                 .password(passwordEncoder.encode(createUserDTO.password()))
                 .roles((Collections.singletonList(userRole)))
                 .build();
 
-    userRepository.save(newUser);
+        userRepository.save(newUser);
     }
 }
