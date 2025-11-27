@@ -11,7 +11,7 @@ public record CreateTransactionDTO(
         LocalDate date,
         TransactionType type,
         Long userId,
-        Long accountId,       // ID da conta usada (se houver)
-        Long creditCardId,    // ID do cartão usado (se houver)
-        Long destinationId    // ID do destino (se houver)
+        Long accountId,
+        Long creditCardId,
+        Long destinationId
 ) {}

@@ -6,5 +6,4 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface CreditCardRepository extends JpaRepository<CreditCard, Long> {
-    // Mude de 'public class' para 'public interface' e estenda JpaRepository
 }

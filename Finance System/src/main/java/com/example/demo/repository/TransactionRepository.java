@@ -8,6 +8,5 @@ import java.util.List;
 
 @Repository
 public interface TransactionRepository extends JpaRepository<Transaction, Long> {
-    // Buscar todas as transações de um usuário específico
     List<Transaction> findByUserId(Long userId);
 }
