@@ -14,6 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 @Table(name="users")
 public class User extends BaseModel{
+    @NotBlank
     @Setter
     @Column(nullable = true)
     private String name;
@@ -21,6 +22,7 @@ public class User extends BaseModel{
     @NotBlank
     @Column(nullable = false)
     private String email;
+    @NotBlank
     @Setter
     @Column(nullable = true)
     private String cpf;

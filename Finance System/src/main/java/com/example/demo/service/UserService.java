@@ -10,7 +10,6 @@ import com.example.demo.models.UserDetailsImpl;
 import com.example.demo.repository.RoleRepository;
 import com.example.demo.repository.UserRepository;
 import com.example.demo.security.JwtTokenService;
-import com.example.demo.security.SecurityConfig;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -22,7 +21,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
-import java.util.List;
 
 @Service
 public class UserService {
@@ -58,13 +56,18 @@ public class UserService {
 
     @Transactional
     public void createUser(CreateUserDTO createUserDTO){
-        RoleName roleNameFromDTO=createUserDTO.role();
-        Role userRole=roleRepository.findByName(roleNameFromDTO);
+//        RoleName roleNameFromDTO=createUserDTO.role();
+        RoleName roleNameFromDTO=RoleName.getRoleCustom();
+        Role userRole=roleRepository.findByName(roleNameFromDTO)
+                .orElseThrow(() -> new RuntimeException("Erro critico! Papel'"+roleNameFromDTO+"' nao encontrado no banco "));
         User newUser = User.builder()
+                .name(createUserDTO.name())
+                .cpf(createUserDTO.cpf())
                 .email(createUserDTO.email())
                 .password(passwordEncoder.encode(createUserDTO.password()))
-                .roles((Collections.singletonList(userRole)))
+                .roles(Collections.singletonList(userRole))
                 .build();
+
 
     userRepository.save(newUser);
     }
